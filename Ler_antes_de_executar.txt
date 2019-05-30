@@ -1,0 +1,16 @@
+
+----------------ANTES DE EXECUTAR----------------
+
+É preciso instalar as dependências antes de executar, é melhor instalar o pip para baixar as extensões
+python (na net tem vários tutoriais). Até agora é necessário as seguintes bibliotecas:
+-> nltk
+-> errno
+
+----------------PARA EXECUTAR----------------
+
+Abrir dois teminais, ir a pasta do arquivo e mandar executar a ordem:
+python server.py (no primeiro terminal)
+python chat.py (no segundo terminal)
+
+server.py é o que mostra a "sala" de chat
+chat.py é para enviar as mensagens, pode abrir mais terminais para incluir novos usuários
