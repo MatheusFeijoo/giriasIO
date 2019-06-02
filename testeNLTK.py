@@ -2,6 +2,8 @@ import nltk
 import csv
 from nltk.corpus import stopwords
 
+
+
 # Pega gírias do arquivo .csv
 ####### Ainda falta opção para inserir novas gírias #######
 def pegaGirias():
@@ -9,6 +11,13 @@ def pegaGirias():
         csv_lendo = list(csv.reader(csvGirias))
     csvGirias.close()
     return csv_lendo
+
+def pegaDic():
+    with open('arquivos/dicionario.csv', 'r', encoding="utf-8", errors="ignore") as csvDic:
+        csv_lendo = list(csv.reader(csvDic))
+    csvDic.close()
+    return csv_lendo
+
 
 # Parte principal
 def tokenFrase(message):
@@ -31,10 +40,14 @@ def tokenFrase(message):
     stop_words = set(stopwords.words('portuguese'))
     words = [w for w in words if not w in stop_words]
     fraseTamanho = len(words)
+    print (words)
     
     # Chama o arquivo de gírias
-    csvGirias = pegaGirias()
-    csv_length = len(csvGirias)
+    girias = pegaGirias()
+    giriasTamanho = len(girias)
+
+    dicio = pegaDic()
+    dicioTamanho = len(dicio)
     #####
     #  
     #   Ainda falta comparar com o dicionário em português
@@ -42,10 +55,22 @@ def tokenFrase(message):
     #####
     tempo = ' '
     for i in range(fraseTamanho):
-        for j in range(csv_length):
-            if(csvGirias[j][0] in words[i]):
-                fraseTemp = "\nNesta frase é possível que a palavra "+ csvGirias[j][0] + " seja uma gíria! \n Seu significado é: \n"+ (csvGirias[j][1])
-                tempo = tempo + fraseTemp
-                
-    temp = '\n' + message + tempo
-    return temp
+        for j in range(giriasTamanho):
+            if(girias[j][0] in words[i]):
+                if(girias[j][0] == words[i]):
+                    for w in range(dicioTamanho):
+                        if(girias[j][0] == dicio[w]):
+                            fraseTemp = "A palavra *"+ girias[j][0] +"* pode ser uma gíria! \nSeu significado é: \n*"+ (girias[j][1]) + "*\n\n"
+                            tempo = tempo + fraseTemp
+                        else:
+                           messageTroc = message.replace(girias[j][0], girias[j][2])
+
+    return messageTroc
+
+
+
+message = "cria subcria tá doido top"
+
+string = tokenFrase(message)
+
+print(string)
