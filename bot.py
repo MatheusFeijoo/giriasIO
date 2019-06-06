@@ -4,7 +4,7 @@ import time
 from testeNLTK import tokenFrase
 
 
-bot_token = "806930373:AAFvyDeTCAlZIGmzu2VOfbTiqJ2GrIgmcMY"
+bot_token = ""
 
 bot = telebot.TeleBot(token=bot_token)
 
@@ -19,8 +19,9 @@ def recebendo(message):
         chat_id = message.chat.id
         passaGiria = message.text
         print (passaGiria)
-        passou = tokenFrase(passaGiria)
-        bot.reply_to(message, passou, parse_mode= 'Markdown')
+        messageTraduzida, passou = tokenFrase(passaGiria)
+        if(passou == 1):
+            bot.reply_to(message, messageTraduzida, parse_mode= 'Markdown')
     except Exception as e:
         bot.reply_to(message, 'algo deu errado')
 

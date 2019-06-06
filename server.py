@@ -1,3 +1,13 @@
+
+
+
+
+
+#NÃO TÁ SENDO USADO
+
+
+
+
 import socket
 import select
 
